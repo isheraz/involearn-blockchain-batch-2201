@@ -5,6 +5,7 @@ import Search from "./Components/Search";
 import Error from "./Components/Error";
 import "h8k-components";
 import axios from "axios";
+import MetaMask from "./Components/Metamask";
 
 const title = "PERN Stack Demo";
 function App() {
@@ -13,10 +14,12 @@ function App() {
   const [studentsFromDb, setStudentsDb] = useState([]);
   const resetError = () => setError({ status: false, message: "" });
 
+  const [address, setAddress] = useState(null);
+
+
   async function getUser() {
     try {
       const response = await axios.get('https://jsonplaceholder.typicode.com/users/');
-      console.log(response);
       setStudentsDb(response.data);
     } catch (error) {
       console.error(error);
@@ -24,9 +27,10 @@ function App() {
   }
 
   useEffect(() => {
+    //All Things related to component did mount
     if(studentsFromDb.length > 0) return;
     getUser();
-  }, []);
+  }, []); // Component Did Mount
 
   useEffect(() => {
     if(studentList.length < 1) return;
@@ -37,6 +41,8 @@ function App() {
     <div className="App">
       <h8k-navbar header={title}></h8k-navbar>
       <div className="layout-column justify-content-center align-items-center w-50 mx-auto">
+        <MetaMask address={address} setAddress={setAddress} />
+        <hr />        
         <Search
           error={error}
           setError={setError}
