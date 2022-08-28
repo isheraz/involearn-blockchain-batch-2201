@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 const MetaMask = ({ address, setAddress }) => {
-  const connectToMetaMask = async (event) => {
+  const connectToMetaMask = async (_event) => {
     if (typeof window.ethereum === "undefined") {
       console.log("MetaMask is not installed!");
     }
